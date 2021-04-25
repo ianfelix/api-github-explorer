@@ -20,7 +20,7 @@ export const CardButtons = () => {
           _focus={{
             bg: 'gray.400',
           }}>
-          Add to cart
+          Repos
         </chakra.button>
         <chakra.button
           px={2}
@@ -37,7 +37,7 @@ export const CardButtons = () => {
           _focus={{
             bg: 'gray.400',
           }}>
-          Add to cart
+          Starred
         </chakra.button>
       </Flex>
     </>
