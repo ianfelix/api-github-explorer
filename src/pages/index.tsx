@@ -6,27 +6,23 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { Card } from '../components/Card';
 import { api } from '../services/api';
 
-interface UserDataProps {
+interface UsersProps {
   name: string;
   avatar_url: string;
-  public_repos: number;
-  followers: number;
-  following: number;
+  bio: string;
 }
 
 export default function Home() {
   const [newUser, setNewUser] = useState('');
-  const [users, setUsers] = useState<UserDataProps[]>([]);
+  const [users, setUsers] = useState<UsersProps[]>([]);
   const [inputError, setInputError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const validate = () => {
     if (newUser.length === 0) {
       setInputError('Digite o nome do usuário');
-      // return false;
     } else {
       setInputError('');
-      // return true;
     }
   };
 
@@ -41,21 +37,26 @@ export default function Home() {
     if (!newUser) return setInputError('Digite o nome do usuário');
 
     try {
-      const response = await api.get<UserDataProps>(`users/${newUser}`);
+      setLoading(true);
+      const response = await api.get(`users/${newUser}`);
       const user = await response.data;
 
       setUsers([...users, user]);
+      console.log(users);
       setNewUser('');
       setInputError('');
+      setLoading(false);
     } catch (error) {
       setInputError('Erro na busca do usuário');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Container>
       <Center mt={10}>
-        <Heading color='white'>GitHub API Search</Heading>
+        <Heading color='white'>GitHub User Search</Heading>
       </Center>
 
       <Box mt='10'>
@@ -64,6 +65,7 @@ export default function Home() {
             <FormControl id='search'>
               <Input
                 type='search'
+                color='white'
                 placeholder='Digite um usuário'
                 onChange={handleInputChange}
                 value={newUser}
@@ -86,13 +88,9 @@ export default function Home() {
             </Button>
           </Stack>
         </form>
-
-        {users.map((user) => (
-          <h1 key={user.avatar_url}>{user.name}</h1>
-        ))}
-
-        <Card />
       </Box>
+
+      <Card users={users} />
     </Container>
   );
 }
