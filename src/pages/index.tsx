@@ -3,7 +3,7 @@ import { FormControl, FormHelperText } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Center, Container, Heading, Stack } from '@chakra-ui/layout';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { Card } from '../components/Card';
+import { Card } from '../components/CardContent/Card';
 import { api } from '../services/api';
 
 interface UsersProps {
