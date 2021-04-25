@@ -3,6 +3,7 @@ import { FormControl, FormHelperText } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Center, Container, Heading, Stack } from '@chakra-ui/layout';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { Card } from '../components/Card';
 import { api } from '../services/api';
 
 interface UserDataProps {
@@ -54,7 +55,7 @@ export default function Home() {
   return (
     <Container>
       <Center mt={10}>
-        <Heading>GitHub API Search</Heading>
+        <Heading color='white'>GitHub API Search</Heading>
       </Center>
 
       <Box mt='10'>
@@ -74,7 +75,11 @@ export default function Home() {
             </FormControl>
 
             <Button
-              colorScheme='blue'
+              bg='gray.900'
+              color='gray.100'
+              fontWeight='semibold'
+              rounded='lg'
+              _hover={{ bg: 'gray.800' }}
               isLoading={loading}
               loadingText='Submitting'>
               Search
@@ -85,6 +90,8 @@ export default function Home() {
         {users.map((user) => (
           <h1 key={user.avatar_url}>{user.name}</h1>
         ))}
+
+        <Card />
       </Box>
     </Container>
   );
