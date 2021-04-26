@@ -13,7 +13,7 @@ export const CardBody = ({ name, bio }: CardBodyProps) => {
       </chakra.h1>
 
       <chakra.p mt={2} fontSize='sm' color='gray.400'>
-        {bio}
+        {bio ?? 'Descrição não encontrada'}
       </chakra.p>
     </>
   );

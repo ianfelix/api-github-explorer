@@ -6,8 +6,10 @@ import { CardImage } from '../CardImage';
 interface CardProps {
   users: {
     name: string;
+    login: string;
     avatar_url: string;
     bio: string;
+    repos_url: string;
   }[];
 }
 
@@ -16,6 +18,7 @@ export const Card = ({ users }: CardProps) => {
     <>
       {users.map((user) => (
         <Flex
+          // key={user.avatar_url}
           mt={5}
           maxW='md'
           mx='auto'
@@ -28,7 +31,7 @@ export const Card = ({ users }: CardProps) => {
           <Box w={2 / 3} p={{ base: 4, md: 4 }}>
             <CardBody name={user.name} bio={user.bio} />
 
-            <CardButtons />
+            <CardButtons username={user.login} />
           </Box>
         </Flex>
       ))}

@@ -2,14 +2,17 @@ import { Button } from '@chakra-ui/button';
 import { FormControl, FormHelperText } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Center, Container, Heading, Stack } from '@chakra-ui/layout';
+import Head from 'next/head';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Card } from '../components/CardContent/Card';
 import { api } from '../services/api';
 
 interface UsersProps {
   name: string;
+  login: string;
   avatar_url: string;
   bio: string;
+  repos_url: string;
 }
 
 export default function Home() {
@@ -31,6 +34,11 @@ export default function Home() {
     setNewUser(e.target.value.trim());
   };
 
+  // const hasSameUser = (newUser: string) => {
+  //   const checkedUser = users.filter((user) => user.login === newUser);
+  //   console.log(checkedUser);
+  // };
+
   const handleSubmitForm = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -42,7 +50,7 @@ export default function Home() {
       const user = await response.data;
 
       setUsers([...users, user]);
-      console.log(users);
+      // hasSameUser(newUser);
       setNewUser('');
       setInputError('');
       setLoading(false);
@@ -54,43 +62,49 @@ export default function Home() {
   };
 
   return (
-    <Container>
-      <Center mt={10}>
-        <Heading color='white'>GitHub User Search</Heading>
-      </Center>
+    <>
+      <Head>
+        <title>GitHub User Search</title>
+      </Head>
 
-      <Box mt='10'>
-        <form onSubmit={handleSubmitForm}>
-          <Stack spacing={3}>
-            <FormControl id='search'>
-              <Input
-                type='search'
-                color='white'
-                placeholder='Digite um usuário'
-                onChange={handleInputChange}
-                value={newUser}
-                onBlur={() => validate()}
-              />
-              {inputError && (
-                <FormHelperText color='red.500'>{inputError}</FormHelperText>
-              )}
-            </FormControl>
+      <Container>
+        <Center mt={10}>
+          <Heading color='white'>GitHub User Search</Heading>
+        </Center>
 
-            <Button
-              bg='gray.900'
-              color='gray.100'
-              fontWeight='semibold'
-              rounded='lg'
-              _hover={{ bg: 'gray.800' }}
-              isLoading={loading}
-              loadingText='Submitting'>
-              Search
-            </Button>
-          </Stack>
-        </form>
-      </Box>
+        <Box mt='10'>
+          <form onSubmit={handleSubmitForm}>
+            <Stack spacing={3}>
+              <FormControl id='search'>
+                <Input
+                  type='search'
+                  color='white'
+                  placeholder='Digite um usuário'
+                  onChange={handleInputChange}
+                  value={newUser}
+                  onBlur={() => validate()}
+                />
+                {inputError && (
+                  <FormHelperText color='red.500'>{inputError}</FormHelperText>
+                )}
+              </FormControl>
 
-      <Card users={users} />
-    </Container>
+              <Button
+                bg='gray.900'
+                color='gray.100'
+                fontWeight='semibold'
+                rounded='lg'
+                _hover={{ bg: 'gray.800' }}
+                isLoading={loading}
+                loadingText='Submitting'>
+                Search
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+
+        <Card users={users} />
+      </Container>
+    </>
   );
 }
