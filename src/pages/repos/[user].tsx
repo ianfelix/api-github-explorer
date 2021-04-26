@@ -12,6 +12,7 @@ interface RepositoryProps {
   stargazers_count: number;
   forks_count: number;
   open_issues_count: number;
+  html_url: string;
   owner: {
     login: string;
     avatar_url: string;
@@ -76,11 +77,13 @@ export default function Repos() {
           )}
 
           {repository.map((repos) => (
-            <Card
-              key={repos.name}
-              name={repos.name}
-              description={repos.description}
-            />
+            <a href={repos.html_url} target='_blank'>
+              <Card
+                key={repos.name}
+                name={repos.name}
+                description={repos.description}
+              />
+            </a>
           ))}
         </Container>
       </Container>

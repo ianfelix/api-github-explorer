@@ -16,7 +16,10 @@ export const Card = (props: CardProps) => {
   return (
     <>
       <Flex
-        // key={user.avatar_url}
+        _hover={{
+          transform: 'translateX(10px)',
+        }}
+        transition='transform 0.2s'
         mt={5}
         maxW='md'
         mx='auto'
