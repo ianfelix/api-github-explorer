@@ -103,7 +103,15 @@ export default function Home() {
           </form>
         </Box>
 
-        <Card users={users} />
+        {users.map((user) => (
+          <Card
+            key={user.avatar_url}
+            cardImageUrl={user.avatar_url}
+            description={user.bio}
+            name={user.name}
+            username={user.login}
+          />
+        ))}
       </Container>
     </>
   );
