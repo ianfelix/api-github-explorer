@@ -3,7 +3,7 @@ import { FormControl, FormHelperText } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Center, Container, Heading, Stack } from '@chakra-ui/layout';
 import Head from 'next/head';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Card } from '../components/CardContent/Card';
 import { api } from '../services/api';
 
@@ -17,9 +17,26 @@ interface UsersProps {
 
 export default function Home() {
   const [newUser, setNewUser] = useState('');
-  const [users, setUsers] = useState<UsersProps[]>([]);
   const [inputError, setInputError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState<UsersProps[]>(() => {
+    if (typeof window !== 'undefined') {
+      const storageUsers = localStorage.getItem('@GithubExplorer:users');
+
+      if (storageUsers) {
+        return JSON.parse(storageUsers);
+      } else {
+        return [];
+      }
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('@GithubExplorer:users', JSON.stringify(users));
+    }
+  }, [users]);
 
   const validate = () => {
     if (newUser.length === 0) {
