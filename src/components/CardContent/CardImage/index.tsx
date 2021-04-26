@@ -1,17 +1,17 @@
 import { Box } from '@chakra-ui/layout';
 
 interface CardImageProps {
-  avatar_url: string;
+  cardImageUrl: string;
 }
 
-export const CardImage = ({ avatar_url }: CardImageProps) => {
+export const CardImage = ({ cardImageUrl }: CardImageProps) => {
   return (
     <>
       <Box
         w={1 / 3}
         bgSize='cover'
         style={{
-          backgroundImage: `url(${avatar_url})`,
+          backgroundImage: `url(${cardImageUrl})`,
         }}></Box>
     </>
   );
