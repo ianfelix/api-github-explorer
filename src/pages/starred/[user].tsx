@@ -24,7 +24,7 @@ export default function Repos() {
     (async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/users/${user}/repos`);
+        const response = await api.get(`users/${user}/starred`);
         const repositories = await response.data;
         setRepository(repositories);
         setLoading(false);
@@ -39,12 +39,12 @@ export default function Repos() {
   return (
     <>
       <Head>
-        <title>Repos | GitHub User Search</title>
+        <title>Starred | GitHub User Search</title>
       </Head>
 
       <Container>
         <Center mt={10}>
-          <Heading color='white'>Repos' {user}</Heading>
+          <Heading color='white'>Starred {user}</Heading>
         </Center>
 
         <Container>

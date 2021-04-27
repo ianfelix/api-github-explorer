@@ -30,23 +30,25 @@ export const CardButtons = ({ username }: CardButtonProps) => {
           </chakra.button>
         </Link>
 
-        <chakra.button
-          px={2}
-          py={1}
-          bg='white'
-          fontSize='xs'
-          color='gray.900'
-          fontWeight='bold'
-          rounded='lg'
-          textTransform='uppercase'
-          _hover={{
-            bg: 'gray.200',
-          }}
-          _focus={{
-            bg: 'gray.400',
-          }}>
-          Starred
-        </chakra.button>
+        <Link href={`/starred/${username}`}>
+          <chakra.button
+            px={2}
+            py={1}
+            bg='white'
+            fontSize='xs'
+            color='gray.900'
+            fontWeight='bold'
+            rounded='lg'
+            textTransform='uppercase'
+            _hover={{
+              bg: 'gray.200',
+            }}
+            _focus={{
+              bg: 'gray.400',
+            }}>
+            Starred
+          </chakra.button>
+        </Link>
       </Flex>
     </>
   );

@@ -35,7 +35,6 @@ export const Card = (props: CardProps) => {
           {cardImageUrl && <CardButtons username={username} />}
         </Box>
       </Flex>
-      )
     </>
   );
 };
