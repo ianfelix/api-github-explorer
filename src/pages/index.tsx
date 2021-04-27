@@ -9,6 +9,7 @@ import { api } from '../services/api';
 
 interface UsersProps {
   name: string;
+  id: number;
   login: string;
   avatar_url: string;
   bio: string;
@@ -60,6 +61,8 @@ export default function Home() {
       setLoading(true);
       const response = await api.get(`users/${newUser}`);
       const user = await response.data;
+      const duplicateUser = users.find((u) => u.id === user.id);
+      if (duplicateUser) return setInputError('Usuário já existente');
 
       setUsers([user, ...users]);
       setNewUser('');
@@ -116,7 +119,7 @@ export default function Home() {
 
         {users.map((user) => (
           <Card
-            key={user.avatar_url}
+            key={user.id}
             cardImageUrl={user.avatar_url}
             description={user.bio}
             name={user.name}
