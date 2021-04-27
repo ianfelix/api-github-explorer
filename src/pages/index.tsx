@@ -21,7 +21,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<UsersProps[]>(() => {
     if (typeof window !== 'undefined') {
-      const storageUsers = localStorage.getItem('@GithubExplorer:users');
+      const storageUsers = sessionStorage.getItem('@GithubExplorer:users');
 
       if (storageUsers) {
         return JSON.parse(storageUsers);
@@ -34,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('@GithubExplorer:users', JSON.stringify(users));
+      sessionStorage.setItem('@GithubExplorer:users', JSON.stringify(users));
     }
   }, [users]);
 
@@ -51,11 +51,6 @@ export default function Home() {
     setNewUser(e.target.value.trim());
   };
 
-  // const hasSameUser = (newUser: string) => {
-  //   const checkedUser = users.filter((user) => user.login === newUser);
-  //   console.log(checkedUser);
-  // };
-
   const handleSubmitForm = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -66,8 +61,7 @@ export default function Home() {
       const response = await api.get(`users/${newUser}`);
       const user = await response.data;
 
-      setUsers([...users, user]);
-      // hasSameUser(newUser);
+      setUsers([user, ...users]);
       setNewUser('');
       setInputError('');
       setLoading(false);

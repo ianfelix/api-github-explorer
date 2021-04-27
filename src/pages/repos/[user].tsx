@@ -9,14 +9,7 @@ import { api } from '../../services/api';
 interface RepositoryProps {
   name: string;
   description: string;
-  stargazers_count: number;
-  forks_count: number;
-  open_issues_count: number;
   html_url: string;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
 }
 
 export default function Repos() {
@@ -28,7 +21,7 @@ export default function Repos() {
   const { user } = router.query;
 
   useEffect(() => {
-    const getRepositories = async () => {
+    (async () => {
       try {
         setLoading(true);
         const response = await api.get(`/users/${user}/repos`);
@@ -40,8 +33,7 @@ export default function Repos() {
       } finally {
         setLoading(false);
       }
-    };
-    getRepositories();
+    })();
   }, []);
 
   return (
