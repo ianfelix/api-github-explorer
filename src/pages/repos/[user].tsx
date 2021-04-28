@@ -1,13 +1,13 @@
 import { Box, Center, Container, Flex, Heading } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
+import { Card } from '@components/CardContent/Card';
+import { Header } from '@components/Header';
+import { api } from '@services/api';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
-import { Card } from '../../components/CardContent/Card';
-import { Header } from '../../components/Header';
-import { api } from '../../services/api';
 
 interface RepositoryProps {
   name: string;
