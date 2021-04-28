@@ -1,9 +1,12 @@
-import { Center, Container, Heading } from '@chakra-ui/layout';
+import { Box, Center, Container, Flex, Heading } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { FaChevronLeft } from 'react-icons/fa';
 import { Card } from '../../components/CardContent/Card';
+import { Header } from '../../components/Header';
 import { api } from '../../services/api';
 
 interface RepositoryProps {
@@ -42,11 +45,21 @@ export default function Repos() {
         <title>Starred | GitHub User Search</title>
       </Head>
 
-      <Container>
-        <Center mt={10}>
-          <Heading color='white'>Starred {user}</Heading>
-        </Center>
+      <Header
+        title={`Starred ${user}`}
+        icon={
+          <Link href='/'>
+            <a>
+              <Flex justifyContent='center' alignItems='center'>
+                <FaChevronLeft size={16} />
+                <Box ml={2}>Voltar</Box>
+              </Flex>
+            </a>
+          </Link>
+        }
+      />
 
+      <Container>
         <Container>
           {loading && (
             <Center mt={10}>
@@ -69,12 +82,8 @@ export default function Repos() {
           )}
 
           {repository.map((repos) => (
-            <a href={repos.html_url} target='_blank'>
-              <Card
-                key={repos.name}
-                name={repos.name}
-                description={repos.description}
-              />
+            <a href={repos.html_url} key={repos.html_url} target='_blank'>
+              <Card name={repos.name} description={repos.description} />
             </a>
           ))}
         </Container>

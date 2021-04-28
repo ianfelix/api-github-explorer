@@ -1,10 +1,12 @@
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormHelperText } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { Box, Center, Container, Heading, Stack } from '@chakra-ui/layout';
+import { Box, Container, Stack } from '@chakra-ui/layout';
 import Head from 'next/head';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FaGithub } from 'react-icons/fa';
 import { Card } from '../components/CardContent/Card';
+import { Header } from '../components/Header';
 import { api } from '../services/api';
 
 interface UsersProps {
@@ -81,11 +83,9 @@ export default function Home() {
         <title>GitHub User Search</title>
       </Head>
 
-      <Container>
-        <Center mt={10}>
-          <Heading color='white'>GitHub User Search</Heading>
-        </Center>
+      <Header title='GitHub Explorer' icon={<FaGithub size={40} />} />
 
+      <Container as='section'>
         <Box mt='10'>
           <form onSubmit={handleSubmitForm}>
             <Stack spacing={3}>
