@@ -82,12 +82,8 @@ export default function Repos() {
           )}
 
           {repository.map((repos) => (
-            <a href={repos.html_url} target='_blank'>
-              <Card
-                key={repos.name}
-                name={repos.name}
-                description={repos.description}
-              />
+            <a href={repos.html_url} target='_blank' key={repos.name}>
+              <Card name={repos.name} description={repos.description} />
             </a>
           ))}
         </Container>
